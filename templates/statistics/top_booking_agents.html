@@ -1,0 +1,70 @@
+{% extends "statistics/base_statistics.html" %}
+<!doctype html>
+<html>
+<head>
+</head>
+<body>
+  {% block statsHeader %} Top Booking Agents {% endblock %}
+
+  {% block statsDisplay %}
+
+  <br><br><table border=4>
+    <caption>Tickets Sold, Past Month</caption>
+    <tr>
+      <th>Booking Agent ID</th>
+    	<th>Tickets Sold</th>
+    </tr>
+  {% for agent in info['top_booking_agents']['tickets_month'] %}
+  	<tr>
+  		<td>{{ agent[0] }}</td>
+  		<td>{{ agent[1] }}</td>
+  	</tr>
+  {% endfor %}
+  </table>
+
+  <br><table border=4>
+    <caption>Tickets Sold, Past Year</caption>
+  	<tr>
+      <th>Booking Agent ID</th>
+    	<th>Tickets Sold</th>
+    </tr>
+  {% for agent in info['top_booking_agents']['tickets_year'] %}
+  	<tr>
+  		<td>{{ agent[0] }}</td>
+  		<td>{{ agent[1] }}</td>
+  	</tr>
+  {% endfor %}
+  </table>
+
+  <br><table border=4>
+    <caption>Commission Earned, Past Month</caption>
+  	<tr>
+      <th>Booking Agent ID</th>
+    	<th>Commission Earned</th>
+    </tr>
+  {% for agent in info['top_booking_agents']['commission_month'] %}
+  	<tr>
+  		<td>{{ agent[0] }}</td>
+  		<td>{{ '{:.2f}'.format(agent[1]) }}</td>
+  	</tr>
+  {% endfor %}
+  </table>
+
+  <br><table border=4>
+    <caption>Commission Earned, Past Year</caption>
+  	<tr>
+      <th>Booking Agent ID</th>
+    	<th>Commission Earned</th>
+    </tr>
+  {% for agent in info['top_booking_agents']['commission_year'] %}
+  	<tr>
+  		<td>{{ agent[0] }}</td>
+  		<td>{{ '{:.2f}'.format(agent[1]) }}</td>
+  	</tr>
+  {% endfor %}
+  </table>
+
+  {% endblock %}
+
+</body>
+</html>

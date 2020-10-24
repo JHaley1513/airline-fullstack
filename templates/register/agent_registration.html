@@ -1,0 +1,18 @@
+{% extends "register/base_registration.html" %}
+{% block title %} Booking Agent{% endblock %}
+{% block head %}
+  {{ super() }}
+  <style type="text/css">
+  </style>
+{% endblock %}
+{% block form %}
+  <form action="/register/register-auth-agent" method="POST">
+    Email: <input type="text" name = "email" placeholder="email" autocomplete="on" required/></br>
+
+    Password: <input type="password" id="password1" name = "password" placeholder="password" required/></br>
+    Re-type password: <input type="password" id="password2" name = "password_again" placeholder="retype password" required/><br>
+
+    ID: <input type="text" name = "id" placeholder="ID" required/><br>
+    <input type="submit" value= Submit />
+  </form>
+{% endblock %}

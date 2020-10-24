@@ -1,0 +1,22 @@
+{% extends "statistics/base_statistics.html" %}
+<!doctype html>
+<html>
+<head>
+
+</head>
+<body>
+  {% block statsHeader %} Revenue Comparisons {% endblock %}
+
+  {% block statsDisplay %}
+  <div id="direct">{{ '{:.2f}'.format(info['revenue_comparisons']['total_without_agent']) }}</div>  <!-- 2 decimal places -->
+  <div id="indirect">{{ '{:.2f}'.format(info['revenue_comparisons']['total_with_agent']) }}</div>
+
+  <div id="#chart"></div>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script> -->
+  <!-- <canvas id="myChart" width="400" height="400"></canvas> -->
+  <!-- <script src="{{ url_for('static', filename='js/revenuePieGraph.js') }}" type="text/javascript"></script> -->
+  {% endblock %}
+</body>
+
+
+</html>

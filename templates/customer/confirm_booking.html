@@ -1,0 +1,35 @@
+{% extends "customer/base_customer.html" %}
+{% block customerHeader %}Track My Spending{% endblock %}
+{% block customerLinks %}
+<a href="/go-back">Go back</a>
+{% endblock %}
+
+{% block customerDisplay %}
+
+<br>Confirming your purchase of ticket on {{ desiredFlight['airline_name'] }} flight {{ desiredFlight['flight_no'] }} to {{ desiredFlight['arrive_at'] }}.
+<br>Your email address: {{ info['email'] }}<br>
+<form action="/reserve-tickets" method="POST">
+Please enter your payment information.<br>
+
+Card type:
+  <select name="credit_or_debit">
+    <option value="credit">Credit</option>
+    <option value="debit">Debit</option>
+  </select>
+<br>Card number:<input type="text" name="card_no" required>
+<br>Name of cardholder:<input type="text" name="cardholder" required>
+<br>Expiration Date:<input type="month" name="expiration" required>
+
+<br><br><h3>Ticket/Flight Details</h3>
+<br>Airline: {{ desiredFlight['airline_name'] }}
+<br>Flight Number: {{ desiredFlight['flight_no'] }}
+<br>Price: {{ desiredFlight['base_price'] }}
+<br>Departing From: {{ desiredFlight['depart_from'] }}
+<br>Departure Date and Time: {{ desiredFlight['depart_time'] }}
+<br>Arriving At: {{ desiredFlight['arrive_at'] }}
+<br>Arrival Date and Time: {{ desiredFlight['arrive_time'] }}
+<br>
+  <input type="submit" value= "Submit" />
+</form>
+
+{% endblock %}

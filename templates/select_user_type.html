@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+<head>
+</head>
+<body>
+	<div id="registration-guidance">
+		First, tell us what kind of user you are.
+	</div>
+	<form action="/register/register-by-type" method="POST">
+		I am a
+		<select name="userType">
+			<option value="customer">Customer</option>
+			<option value="booking_agent">Booking Agent</option>
+			<option value="airline_staff">Airline Staff</option>
+		</select>
+		<br>
+		<input type="submit" value = Go />
+	</form>
+
+<a href="/go-back">Go back</a>
+<a href="/">Back to main page</a>
+</body>
+</html>

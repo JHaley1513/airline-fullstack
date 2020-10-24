@@ -1,0 +1,35 @@
+{% extends "customer/base_customer.html" %}
+{% block customerHeader %}My Flights{% endblock %}
+{% block customerLinks %}
+<a href="/search-flights">Search Flights</a><br>
+<a href="/track-my-spending">Track My Spending</a><br>
+<a href="/">Back to main page</a><br>
+{% endblock %}
+
+{% block customerDisplay %}
+
+{% if message %}{{ message }}{% endif %}
+
+<br><br><table border=2>
+  <caption>My Upcoming Flights</caption>
+  <tr>
+    <th>Departure Date and Time</th>
+    <th>Arrival Date and Time</th>
+    <th>Departs From</th>
+    <th>Arrives At</th>
+    <th>Airline</th>
+    <th>Flight Number</th>
+  </tr>
+{% for f in info['flights'] %}
+  <tr>
+    <td>{{ f['depart_time'] }}</td>
+    <td>{{ f['arrive_time'] }}</td>
+    <td>{{ f['depart_from'] }}</td>
+    <td>{{ f['arrive_at'] }}</td>
+    <td>{{ f['airline_name'] }}</td>
+    <td>{{ f['flight_no'] }}</td>
+  </tr>
+{% endfor %}
+</table>
+
+{% endblock %}

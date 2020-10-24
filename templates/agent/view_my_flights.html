@@ -1,0 +1,34 @@
+{% extends "agent/base_agent.html" %}
+{% block agentHeader %}My Flights{% endblock %}
+{% block agentLinks %}<a href="/agentsearchflights">Search Flights</a>{% endblock %}
+
+
+{% block agentDisplay %}
+
+{% if message %}{{ message }}{% endif %}
+
+<br><br><table border=2>
+  <caption>My Upcoming Flights</caption>
+  <tr>
+    <th>Departure Date and Time</th>
+    <th>Airline</th>
+    <th>Flight Number</th>
+    <th>Departs From</th>
+    <th>Arrives At</th>
+    <th>Customer Email</th>
+    <th>Commission Received</th>
+  </tr>
+{% for f in info['flights'] %}
+  <tr>
+    <td>{{ f['depart_time'] }}</td>
+    <td>{{ f['airline_name'] }}</td>
+    <td>{{ f['flight_no'] }}</td>
+    <td>{{ f['depart_from'] }}</td>
+    <td>{{ f['arrive_at'] }}</td>
+    <td>{{ f['customer_email'] }}</td>
+    <td>{{ f['commission'] }}</td>
+  </tr>
+{% endfor %}
+</table>
+
+{% endblock %}

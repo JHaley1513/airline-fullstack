@@ -1,0 +1,21 @@
+<!doctype html>
+<html>
+<head>
+</head>
+<body>
+  <h3> Statistics - {{ info['airline_name'] }} </h3>
+  <h4> {% block statsHeader %}{% endblock %} </h4>
+
+  <a href="/view-sales-reports">Sales Reports</a>
+  <a href="/view-revenue-comparisons">Revenue Comparisons</a>
+  <a href="/view-top-destinations">Our Top Destinations</a>
+  <a href="/view-frequent-customers">Our Frequent Customers</a>
+  <a href="/view-top-booking-agents">Top Booking Agents</a>
+  <br><a href="/">Back to main page</a>
+
+  {% block statsDisplay %}{% endblock %}
+
+</body>
+
+
+</html>

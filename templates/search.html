@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+<head>
+  <link rel="stylesheet" href="css/search_style.css">
+</head>
+<body>
+<form action="/get-flights" method="POST">
+	<input id="depart-from" type="text" name="from-city-airport" placeholder="Departing City or Airport" required/> </br>
+	<input id="arrive-at" type="text" name="to-city-airport" placeholder="Arriving City or Airport" required/></br>
+  <input id="depart-time" type="text" name="departure-time" placeholder="Departure Time" required/></br>
+  <!-- <input id="arrive-time" type="text" name="arrival-time" placeholder="Arrival Time (roundtrips only)"/></br> -->
+	<input type="submit" value = Search />
+	{% if error %}
+		<p class="error"><strong>Error:</strong> {{error}}</p>
+	{% endif %}
+</form>
+
+<a href="/">Go back</a>
+
+</body>
+
+
+</html>

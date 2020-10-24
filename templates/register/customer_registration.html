@@ -1,0 +1,11 @@
+{% extends "register/base_registration.html" %}
+{% block title %} Customer{% endblock %}
+{% block head %}
+  {{ super() }}
+  <style type="text/css">
+  </style>
+{% endblock %}
+{% block form %}
+  <form action="/register/register-auth-customer" method="POST">
+  </form>
+{% endblock %}

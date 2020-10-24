@@ -1,0 +1,64 @@
+{% extends "agent/base_agent.html" %}
+
+{% block agentHeader %}My Top Customers{% endblock %}
+{% block agentLinks %}<a href="/view-my-commission">My Commission</a>{% endblock %}
+
+{% block agentDisplay %}
+
+  <br><br><table border=2>
+    <caption>Tickets Purchased, Past 6 Months</caption>
+    <tr>
+      <th>Customer Email</th>
+    	<th>Tickets Purchased</th>
+    </tr>
+  {% for c in info['top_customers']['tickets_six_months'] %}
+  	<tr>
+  		<td>{{ c['email'] }}</td>
+  		<td>{{ c['num_tickets'] }}</td>
+  	</tr>
+  {% endfor %}
+  </table>
+
+  <br><br><table border=2>
+    <caption>Tickets Purchased, Past Year</caption>
+    <tr>
+      <th>Customer Email</th>
+    	<th>Tickets Purchased</th>
+    </tr>
+  {% for c in info['top_customers']['tickets_year'] %}
+  	<tr>
+  		<td>{{ c['email'] }}</td>
+  		<td>{{ c['num_tickets'] }}</td>
+  	</tr>
+  {% endfor %}
+  </table>
+
+  <br><br><table border=2>
+    <caption>Commission Received, Past 6 Months</caption>
+    <tr>
+      <th>Customer Email</th>
+    	<th>Commission Received</th>
+    </tr>
+  {% for c in info['top_customers']['commission_six_months'] %}
+  	<tr>
+  		<td>{{ c['email'] }}</td>
+  		<td>{{ c['commission'] }}</td>
+  	</tr>
+  {% endfor %}
+  </table>
+
+  <br><br><table border=2>
+    <caption>Tickets Purchased, Past Year</caption>
+    <tr>
+      <th>Customer Email</th>
+    	<th>Commission Received</th>
+    </tr>
+  {% for c in info['top_customers']['commission_year'] %}
+  	<tr>
+  		<td>{{ c['email'] }}</td>
+  		<td>{{ c['commission'] }}</td>
+  	</tr>
+  {% endfor %}
+  </table>
+
+{% endblock %}

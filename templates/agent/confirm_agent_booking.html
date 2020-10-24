@@ -1,0 +1,25 @@
+{% extends "agent/base_agent.html" %}
+{% block agentHeader %}Confirm Flight Booking{% endblock %}
+
+<a href="/go-back">Go back</a><br>
+{% block agentDisplay %}
+
+Confirming your purchase of ticket on {{ desiredFlight['airline_name'] }} flight {{ desiredFlight['flight_no'] }} to {{ desiredFlight['arrive_at'] }}.
+Your Booking Agent ID: {{ info['id'] }}
+<form action="/agent-reserve-tickets" method="POST">
+Enter the email address of the customer on whose behalf you are ordering.<br>
+  <input type="text" name="customer_email" required>
+
+<br><br><h3>Ticket/Flight Details</h3>
+<br>Airline: {{ desiredFlight['airline_name'] }}
+<br>Flight Number: {{ desiredFlight['flight_no'] }}
+<br>Price: {{ desiredFlight['base_price'] }}
+<br>Departing From: {{ desiredFlight['depart_from'] }}
+<br>Departure Date and Time: {{ desiredFlight['depart_time'] }}
+<br>Arriving At: {{ desiredFlight['arrive_at'] }}
+<br>Arrival Date and Time: {{ desiredFlight['arrive_time'] }}
+<br>
+  <input type="submit" value= "Submit" />
+</form>
+
+{% endblock %}

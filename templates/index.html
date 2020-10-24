@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>boom</title>
+</head>
+
+<body>
+
+{% if userType == 'guest' %}
+	<a href="/login">Login</a>
+	<a href="/register/select-user-type">Register</a>
+{% else %}
+	{% if userType == 'customer' %}
+		Welcome, {{ info['name'] }}
+	{% else %}
+		Welcome, {{ username }}.<br>
+		{% if userType == 'booking_agent'%}
+			My ID: {{ info['id'] }}
+		{% elif userType == 'airline_staff'%}
+			{{ info['airline_name'] }}
+		{% endif %}
+	{% endif %}
+{% endif %}
+
+{% if userType == 'customer'%}
+	<br><a href="/view-my-flights">My Flights</a>
+	<br><a href="/search-flights">Search Flights</a>
+	<br><a href="/track-my-spending">Track My Spending</a>
+	<br><a href="/logout">Logout</a>
+
+{% elif userType == 'booking_agent'%}
+	<br><a href="/agent-view-flights">My Flights</a>
+	<br><a href="/view-my-commission">My Statistics</a>
+	<br><a href="/logout">Logout</a>
+
+{% elif userType == 'airline_staff'%}
+	<br><a href="/view-sales-reports">Statistics</a> for {{ info['airline_name'] }}
+	<br><a href="/view-our-flights">View and Edit Flights</a>
+	<br><a href="/airplanes">View and Edit Airplanes</a>
+	<br><a href="/airports">View and Edit Airports</a>
+
+	<div>
+		My Account
+	</div>
+	<a href="/go-back">Go back</a><br>
+	<a href="/logout">Logout</a>
+
+{% endif %}
+
+</body>
+
+</html>

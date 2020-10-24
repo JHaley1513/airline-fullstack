@@ -1,0 +1,81 @@
+{% extends "customer/base_customer.html" %}
+{% block customerStyles %}
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
+{% endblock %}
+{% block customerHeader %}Search Flights{% endblock %}
+{% block customerLinks %}
+<a href="/view-my-flights">My Flights</a><br>
+<a href="/track-my-spending">Track My Spending</a><br>
+<a href="/">Back to main page</a><br>
+{% endblock %}
+
+{% block customerDisplay %}
+
+{% if error %} <strong>Error: </strong> {{ error }} {% endif %}
+
+<div id="body-container">
+  <div class="flight-search">
+    <!-- Fill out these fields to search for flights -->
+    <form action="/search-flights-within-dates" method="POST">
+      <div id="trip-type">
+        <input type="radio" id="trip-type-selector-roundtrip" name="trip-type" value="roundtrip" checked>
+        <label class="trip-type-selector-text" for="trip-type-selector-roundtrip">Roundtrip</label>
+        <input type="radio" id="trip-type-selector-oneway" name="trip-type" value="oneway">
+        <label class="trip-type-selector-text" for="trip-type-selector-oneway">One way</label>
+      </div>
+
+      <div id="trip-details">
+        <div class="details-subgroup" id="locations">
+          <div class="locations-subgroup" id="location-from">
+            <label class="trip-details-label" for="trip-origin-search">From</label>
+            <input class="trip-details-input" id="trip-origin-search" type="text">
+          </div>
+          <!-- <div class="locations-subgroup" id="location-switch">
+            <label class="trip-details-label">&nbsp;</label>
+            <button class="trip-details-input">&#8646;</button>
+          </div> -->
+          <div class="locations-subgroup" id="location-to">
+            <label class="trip-details-label" for="trip-destination-search">To</label>
+            <input class="trip-details-input" id="trip-destination-search" type="text">
+          </div>
+        </div>
+
+        <div class="details-subgroup" id="dates-and-class-travelers">
+          <div class="dates-travelers-subgroup" id="dates">
+            <div class="dates-subgroup" id="depart">
+              <label class="trip-details-label" for="depart-datepicker-button">Depart</label>
+              <button class="trip-details-input" id="depart-datepicker-button">
+                <span id="depart-datepicker-text">[x]</span>
+              </button>
+            </div>
+            <div class="dates-subgroup" id="return">
+              <label class="trip-details-label" for="return-datepicker-button">Return</label>
+              <button class="trip-details-input" id="return-datepicker-button">
+                <span id="return-datepicker-text">[x]</span>
+              </button>
+            </div>
+          </div>
+          <div class="dates-travelers-subgroup" id="travelers">
+            <div class="travelers-subgroup">
+              <label class="trip-details-label">Cabin Class & Travelers</label>
+              <button class="trip-details-label" id="class-travelers-trigger" name="class-travelers-trigger">
+                <span id="cabin-class-travelers-selector-text">1 adult, Economy</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="submit">
+        <button>Search flights &#10140;</button>
+      </div>
+
+    </form>
+  </div>
+
+</div>
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="{{ url_for('static', filename='js/flightSearchResize.js') }}" type="text/javascript"></script>
+
+{% endblock %}

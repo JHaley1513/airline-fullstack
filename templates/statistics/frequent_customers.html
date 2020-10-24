@@ -1,0 +1,62 @@
+{% extends "statistics/base_statistics.html" %}
+<!doctype html>
+<html>
+<head>
+</head>
+<body>
+  {% block statsHeader %} Frequent Customers {% endblock %}
+
+  {% block statsDisplay %}
+
+    <br><br><table border=4>
+      <caption>Top Customers in the Past Year</caption>
+      <tr>
+        <th>Name</th>
+      	<th>Email</th>
+        <th>Times Flown</th>
+      </tr>
+    {% for customer in info['frequent_customers'] %}
+    	<tr>
+    		<td>{{ customer['name'] }}</td>
+    		<td>{{ customer['email'] }}</td>
+        <td>{{ customer['total_flights'] }}</td>
+    	</tr>
+    {% endfor %}
+    </table>
+
+    <br>View all flights for:
+    <form action="/get-customer-flights" method="POST">
+      <select name="selected_customer">
+        {% for customer in info['all_customers'] %}
+          <option value="{{customer['name']}}, {{customer['email']}}">{{customer['name']}}, {{customer['email']}}</option>
+        {% endfor %}
+      </select>
+      <input type="submit" value= Submit />
+    </form>
+
+    {% if flights %}
+      <br><table border=4>
+        <caption>All Flights for {{email}}</caption>
+        <tr>
+          <th>Flight No.</th>
+        	<th>Depart From</th>
+          <th>Departure Date and Time</th>
+          <th>Arrive At</th>
+          <th>Arrival Date and Time</th>
+          <th>Ticket Price</th>
+        </tr>
+      {% for flight in flights %}
+        <td>{{ flight['flight_no'] }}</td>
+    		<td>{{ flight['depart_from'] }}</td>
+        <td>{{ flight['depart_time'] }}</td>
+        <td>{{ flight['arrive_at'] }}</td>
+        <td>{{ flight['arrive_time'] }}</td>
+        <td>{{ flight['sold_price'] }}</td>
+      {% endfor %}
+      </table>
+    {% endif %}
+
+  {% endblock %}
+
+</body>
+</html>

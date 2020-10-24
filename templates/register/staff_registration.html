@@ -1,0 +1,54 @@
+{% extends "register/base_registration.html" %}
+{% block title %}n Airline Staff{% endblock %}
+{% block head %}
+  {{ super() }}
+  <style type="text/css">
+    #phone1{
+      width: 3.5ch;
+    }
+    #phone2{
+      width: 3.5ch;
+    }
+    #phone3{
+      width: 4.5ch;
+    }
+  </style>
+{% endblock %}
+{% block form %}
+  <form action="/register/register-auth-staff" method="POST">
+    Username:         <input type="text" name = "username" placeholder="username" autocomplete="on" required/></br>
+
+    Password:         <input type="password" id="password1" name = "password" placeholder="password" required/></br>
+    Re-type password: <input type="password" id="password2" name = "password_again" placeholder="retype password" required/>
+    <div id="password-checker"></div>
+
+    <br>
+    Your name:        <input type="text" name = "first_name" placeholder="First" required/>
+    <input type="text" name = "last_name" placeholder="Last" required/>
+
+    <br>
+    Date of birth:
+    <input type="date" name="date_of_birth" id="dateinput" required>
+
+    <br>
+    Phone number:
+    (<input type="text" class="phone" id="phone1" name="phone1" maxlength="3" placeholder="XXX" required/></input>)
+     <input type="text" class="phone" id="phone2" name="phone2" maxlength="3" placeholder="XXX" required/></input>
+    -<input type="text" class="phone" id="phone3" name="phone3" maxlength="4" placeholder="XXXX" required/></input>
+    <!-- format: (123)456-7890 -->
+
+    <br>
+    Name of your airline:
+    <select id="airline_name" name="airline_name">
+      {% for a in allAirlines %}
+        <option value="{{a}}">{{a}}</option>
+      {% endfor %}
+    </select>
+    <br>
+    <input type="submit" value= Submit />
+  </form>
+{% endblock %}
+
+{% block scripts %}
+  <script src="{{ url_for('static', filename='js/phoneNumberChecker.js') }}" type="text/javascript"></script>
+{% endblock %}

@@ -1,0 +1,81 @@
+{% extends "agent/base_agent.html" %}
+{% block agentHeader %}Search Flights{% endblock %}
+{% block agentLinks %}<a href="/agent-view-flights">View My Flights</a>{% endblock %}
+
+
+{% block agentDisplay %}
+
+{% if error %} <strong>Error: </strong> {{ error }} {% endif %}
+
+<br>Today's Date: <div id="todaysdate">{{ today }}</div>
+
+<form action="/agent-search-flights-within-dates" method="POST">
+  From:<select name="fromAirport">
+    {% for a in airports %}
+    {% set code = a['code'] %}
+    <option value="{{code}}">{{code}}</option>
+    {% endfor %}
+  </select><br>
+  To:<select name="toAirport">
+    {% for a in airports %}
+    {% set code = a['code'] %}
+    <option value="{{code}}">{{code}}</option>
+    {% endfor %}
+  </select><br>
+  Between:<input id="start" type="date" name="start" required><button onclick="setToday()" type="button">Today</button><br>
+  And:<input id="end" type="date" name="end" required><button onclick="set2030()" type="button">2030</button><br>
+  <input type="submit" value= "Search" />
+</form>
+
+{% if flights %}
+<form action="/agent-confirm-booking" method="POST">
+
+  <br><table border=2>
+    <caption>Upcoming Flights</caption>
+    <tr>
+      <th>Select</th>
+      <th>Departing From</th>
+      <th>Departure Date and Time</th>
+      <th>Arriving At</th>
+      <th>Arrival Date and Time</th>
+      <th>Airline</th>
+      <th>Flight Number</th>
+      <th>Price</th>
+    </tr>
+  {% for f in flights %}
+    <tr>
+      <td><input type="radio" class="choice" name="flight"></td>
+      <td>{{ f['depart_from'] }}</td>
+      <td>{{ f['depart_time'] }}</td>
+      <td>{{ f['arrive_at'] }}</td>
+      <td>{{ f['arrive_time'] }}</td>
+      <td>{{ f['airline_name'] }}</td>
+      <td>{{ f['flight_no'] }}</td>
+      <td>{{ f['base_price'] }}</td>
+    </tr>
+  {% endfor %}
+  </table>
+  <input type="submit" value= "Proceed"/>
+</form>
+{% endif %}
+
+
+<script>
+var start = document.getElementById('start');
+var end = document.getElementById('end');
+var today = document.getElementById('todaysdate');
+
+function setToday(){
+  start.value = today.innerHTML;
+}
+
+function set2030(){
+  end.value = '2030-01-01';
+}
+
+var choices = document.getElementsByClassName("choice");
+for(let i=0; i<choices.length; i++)
+  choices[i].value = i;
+  console.log(choices[i].value);
+</script>
+{% endblock %}

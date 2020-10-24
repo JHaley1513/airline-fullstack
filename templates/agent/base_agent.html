@@ -1,0 +1,18 @@
+<!doctype html>
+<html>
+<head>
+  {% block stylesheet %}{% endblock %}
+</head>
+<body>
+  <h3> {{ info['email'] }} </h3>
+  <h4> {% block agentHeader %}{% endblock %} </h4>
+
+  {% block agentLinks %}{% endblock %}
+  <br><a href="/">Back to main page</a><br>
+
+  {% block agentDisplay %}{% endblock %}
+
+</body>
+
+
+</html>

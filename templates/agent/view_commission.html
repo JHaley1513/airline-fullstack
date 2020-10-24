@@ -1,0 +1,49 @@
+{% extends "agent/base_agent.html" %}
+{% block agentHeader %}My Commission{% endblock %}
+{% block agentLinks %}<a href="/agent-view-top-customers">My Top Customers</a>{% endblock %}
+
+{% block agentDisplay %}
+<form action="/view-commission-within-dates" method="POST">
+  {% if error %} <strong>Error: </strong> {{ error }} {% endif %}
+
+  Today's Date: <div id="todaysdate">{{ today }}</div>
+  <br>
+  {% if start and end %}
+    Between {{ start[:10] }} and {{ end[:10] }}
+    {% set total = commission['total_commission'] %}
+    {% set tickets = commission['total_tickets'] %}
+    {% set avg = commission['avg_commission'] %}
+  {% else %}
+    Last 30 Days (default)
+    {% set total = info['commission_thirty_days']['total_commission'] %}
+    {% set tickets = info['commission_thirty_days']['total_tickets'] %}
+    {% set avg = info['commission_thirty_days']['avg_commission'] %}
+  {% endif %}
+
+  <br>
+  <br>Total Commission: {{ total }}
+  <br>Tickets Sold: {{ tickets }}
+  <br>Commission Per Ticket: {{ avg }}
+  <br><br>
+
+  Custom Dates:<br>
+  Start:<input id="start" type="date" name="start" required><button onclick="set1900()" type="button">Always</button><br>
+  End:<input id="end" type="date" name="end" required><button onclick="setToday()" type="button">Today</button><br>
+  <input type="submit" value= Go />
+
+</form>
+<script>
+var start = document.getElementById('start');
+var end = document.getElementById('end');
+var today = document.getElementById('todaysdate');
+
+function set1900(){
+  start.value = '1900-01-01';
+}
+
+function setToday(){
+  end.value = today.innerHTML;
+}
+
+</script>
+{% endblock %}

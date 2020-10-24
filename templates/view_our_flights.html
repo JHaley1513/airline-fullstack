@@ -1,0 +1,49 @@
+{% extends "base_flights.html" %}
+<!doctype html>
+<html>
+<head>
+</head>
+<body>
+  {% block flightsHeader %} View Our Flights {% endblock %}
+
+  {% block flightsDisplay %}
+
+  {% if message %}{{ message }}{% endif %}
+  <form action="/edit-flight" method="POST">
+  <br><br><table border=2>
+    <caption>My Upcoming Flights</caption>
+    <tr>
+      <th>Select</th>
+      <th>Departure Date and Time</th>
+      <th>Arrival Date and Time</th>
+      <th>Departs From</th>
+      <th>Arrives At</th>
+      <th>Flight Number</th>
+      <th>Airplane ID</th>
+      <th>Flight Status</th>
+      <th>Delay Time</th>
+    </tr>
+  {% for f in info['flights'] %}
+    <tr>
+      <td><input type="radio" name="flight"></td>
+      <td>{{ f['depart_time'] }}</td>
+      <td>{{ f['arrive_time'] }}</td>
+      <td>{{ f['depart_from'] }}</td>
+      <td>{{ f['arrive_at'] }}</td>
+      <td>{{ f['flight_no'] }}</td>
+      <td>{{ f['airplane_id'] }}</td>
+      <td>{{ f['flight_status'] }}</td>
+      {% if f['delay_length'] and f['delay_length'] != '0:00' %}
+        <td>{{ f['delay_length'] }}</td>
+      {% else %}
+        <td> - </td>
+      {% endif %}
+    </tr>
+  {% endfor %}
+  </table>
+</form>
+
+  {% endblock %}
+
+</body>
+</html>

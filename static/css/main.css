@@ -1,0 +1,156 @@
+*{
+  font-family: Helvetica;
+}
+
+.flight-search{
+  padding: 25px;
+  border-radius: 3px;
+}
+
+.flight-search{
+  background-color: #004445;
+}
+
+#trip-type{
+  font-size: 1rem;
+  padding-bottom: 10px;
+}
+
+#trip-type input[type="radio"]{
+  margin-right: 0;
+}
+
+/* input[type="radio"]:not(old):checked + label > span:before{
+  color: #f8b400;
+} */
+
+input[type="radio"] {
+  display: none;
+}
+
+input[type="radio"] + *::before {
+  content: "";
+  display: inline-block;
+  vertical-align: bottom;
+  width: 0.8rem;
+  height: 0.8rem;
+  margin-right: 0.3rem;
+  border-radius: 50%;
+  border-style: solid;
+  border-width: 0.2rem;
+  border-color: gray;
+}
+
+input[type="radio"]:checked + *::before {
+  background: radial-gradient(teal 0%, teal 40%, transparent 50%, transparent);
+  border-color: teal;
+}
+input[type="radio"]:checked + * {
+  color: teal;
+}
+
+
+
+#trip-type label{
+  margin-right: 10px;
+}
+
+#trip-details{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap; /* Makes the subgroups go from horizontal to vertical ordering when window is made smaller */
+}
+
+.details-subgroup{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  flex-grow: 1;
+}
+
+.details-subgroup label{
+  font-size: 12px;
+  font-weight: bold;
+}
+
+#locations{
+  width: 400px;
+}
+
+.locations-subgroup, .dates-travelers-subgroup{
+  margin-top: 10px;
+}
+
+.locations-subgroup{
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  flex-grow: 1;
+  height: 60px;
+}
+
+.locations-subgroup input{
+  height: 40px;
+  flex-grow: 1;
+  border: 1px solid gray;
+  padding-top: 5px;
+  font-size: 16px;
+  text-align: left;
+}
+
+.dates-travelers-subgroup{
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+  height: 60px;
+}
+
+.dates-travelers-subgroup button{
+  width: 100%;
+  height: 50px;
+  font-size: 16px;
+  border: 1px solid gray;
+  padding-left: 10px;
+  padding-top: 5px;
+  text-align: left;
+}
+
+#dates{
+  width: 200px;
+}
+
+.dates-subgroup{
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+#travelers{
+  width: 200px;
+  flex-grow: 1;
+}
+
+.travelers-subgroup{
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+#submit button{
+  margin-top: 20px;
+  height: 45px;
+  width: 100%;
+  border-radius: 3px;
+  border: none;
+  background-color: green;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+#submit button:hover{
+  background-color: blue;
+}
+
+#trip-type input, #trip-type label, .dates-travelers-subgroup button, #submit button{
+  cursor: pointer; /*cursor becomes finger pointer on hover*/
+}

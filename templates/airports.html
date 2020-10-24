@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+<head>
+</head>
+<body>
+  <h3> Airports </h3>
+  <br><a href="/">Back to main page</a><br>
+
+  {% if error %} {{error}} {% endif %}
+
+  <table border=4>
+    <!-- <caption>Airports</caption> -->
+    <tr>
+      <th>Code</th>
+    	<th>Name              </th>
+    </tr>
+  {% for airport in info['airports'] %}
+  	<tr>
+      <td>{{ airport['code'] }}</td>
+  		<td>{{ airport['name'] }}</td>
+  	</tr>
+  {% endfor %}
+  </table>
+
+  <h4> Add New Airport </h4>
+  <form action="airportInsertAuth" method="POST">
+    Airport Name: <input type="text" name = "name" required/>
+    Airport Code: <input type="text" name = "code" required/>
+    <input type="submit" value= Submit />
+  </form>
+
+</body>
+
+
+</html>

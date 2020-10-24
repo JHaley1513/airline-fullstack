@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+<head>
+</head>
+<body>
+  <h3> Airplanes </h3>
+  <br><a href="/">Back to main page</a><br>
+
+  {% if error %} {{error}} {% endif %}
+
+  <table border=4>
+    <!-- <caption>Airports</caption> -->
+    <tr>
+      <th>Plane ID</th>
+    	<th>Seats              </th>
+    </tr>
+
+  {% for airplane in info['airplanes'] %}
+  	<tr>
+      <td>{{ airplane['id'] }}</td>
+  		<td>{{ airplane['total_seats'] }}</td>
+  	</tr>
+  {% endfor %}
+  </table>
+
+  <h4> Add New Airplane </h4>
+  <form action="airplaneInsertAuth" method="POST">
+    Airplane ID: <input type="text" name = "id" required/>
+    Number of Seats: <input type="text" name = "total_seats" required/>
+    <input type="submit" value= Submit />
+  </form>
+
+</body>
+
+
+</html>

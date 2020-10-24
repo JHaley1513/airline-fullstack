@@ -1,0 +1,42 @@
+{% extends "statistics/base_statistics.html" %}
+<!doctype html>
+<html>
+<head>
+</head>
+<body>
+  {% block statsHeader %} Our Top Destinations {% endblock %}
+
+  {% block statsDisplay %}
+
+  <br><br><table border=4>
+    <caption>Past Three Months</caption>
+    <tr>
+      <th>Destination Airport</th>
+    	<th>Tickets Sold</th>
+    </tr>
+  {% for destination in info['top_destinations']['past_three_months'] %}
+  	<tr>
+  		<td>{{ destination['destination'] }}</td>
+  		<td>{{ destination['num_customers'] }}</td>
+  	</tr>
+  {% endfor %}
+  </table>
+
+  <br><br><table border=4>
+    <caption>Past Year</caption>
+    <tr>
+      <th>Destination Airport</th>
+    	<th>Tickets Sold</th>
+    </tr>
+  {% for destination in info['top_destinations']['past_year'] %}
+  	<tr>
+  		<td>{{ destination['destination'] }}</td>
+  		<td>{{ destination['num_customers'] }}</td>
+  	</tr>
+  {% endfor %}
+  </table>
+
+  {% endblock %}
+
+</body>
+</html>

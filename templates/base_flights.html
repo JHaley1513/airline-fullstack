@@ -1,0 +1,20 @@
+<!doctype html>
+<html>
+<head>
+</head>
+<body>
+  <h3> Statistics - {{ info['airline_name'] }} </h3>
+  <h4> {% block flightsHeader %}{% endblock %} </h4>
+
+  <a href="/view-our-flights">View Our Flights</a>
+  <a href="/edit-flight">Edit Flight</a>
+  <a href="/change-flight-status">Change Flight Status</a>
+  <a href="/create-flight">Create Flight</a>
+  <br><a href="/">Back to main page</a>
+
+  {% block flightsDisplay %}{% endblock %}
+
+</body>
+
+
+</html>
