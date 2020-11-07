@@ -70,20 +70,25 @@ def goBack():
     else:
         return redirect(url_for('mainPage'))
 
+# @app.route('/')
+# def mainPage():
+#     global info
+#     if len(session) > 0:
+#         updateInfo()
+#         # print(session)
+#         username = session['username']
+#         print("Session currently active for user", username)
+#     else: #the user is not logged in
+#         clearInfo()
+#         clearHistory()
+#         username = 'GUEST'
+#     addToHistory()
+#     return render_template('index.html', username=username, userType=currentUserType, info=info)
+
+#new
 @app.route('/')
 def mainPage():
-    global info
-    if len(session) > 0:
-        updateInfo()
-        # print(session)
-        username = session['username']
-        print("Session currently active for user", username)
-    else: #the user is not logged in
-        clearInfo()
-        clearHistory()
-        username = 'GUEST'
-    addToHistory()
-    return render_template('index.html', username=username, userType=currentUserType, info=info)
+    return render_template('index.html', info=info, airports=getAirportsBasicInfo(), today=getTodaysDate())
 
 @app.route('/login')
 def login():
@@ -351,11 +356,11 @@ def viewMyFlights():
         return accessDenied()
     return render_template('customer/view_flights.html', info=info)
 
-@app.route('/search-flights')
-def searchFlights():
-    if len(session) == 0 or currentUserType != 'customer':
-        return accessDenied()
-    return render_template('customer/search_for_flights.html', info=info, airports=getAirports(), today=getTodaysDate())
+# @app.route('/search-flights')
+# def searchFlights():
+#     if len(session) == 0 or currentUserType != 'customer':
+#         return accessDenied()
+#     return render_template('customer/search_for_flights.html', info=info, airports=getAirports(), today=getTodaysDate())
 
 @app.route('/search-flights-within-dates', methods=['GET', 'POST'])
 def searchFlightsWithinDates():
@@ -718,6 +723,12 @@ def getTopBookingAgents():
 
 def getAirports():
     query = 'SELECT code, name FROM `airport`'
+    airports = executeQuery(query, fetchMultiple=True)
+    return airports
+
+#new
+def getAirportsBasicInfo():
+    query = 'SELECT code, name, city, state, country FROM `airport`'
     airports = executeQuery(query, fetchMultiple=True)
     return airports
 
