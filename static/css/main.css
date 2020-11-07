@@ -1,14 +1,132 @@
-*{
-  font-family: Helvetica;
+body{
+  font-family: "Helvetica Neue","Arial",sans-serif;
+  font-size: 1.0rem;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.flight-search{
+a{
+  color: black;
+}
+
+#header-flexwrapper{
+  margin-left: 0px;
+  display: flex;
+  flex-direction: row;
+}
+
+#logo{
+  flex-grow: 3;
+  /* background-color: blue; */
+  /* display: flex; */
+  position: relative;
+}
+
+#logo a{
+  text-decoration: none;
+  /* align-self: center; */
+  background-color: white;
+  /* text-align: center; */
+  color: #c70039;
+  font-weight: bold;
+  font-size: 1.8rem;
+
+  margin: 0;
+  position: absolute; /* this, combined with wrapper being relative, centers the hyperlink */
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+#main-nav{
+  flex-grow: 1;
+}
+
+#main-nav ul{
+  display: flex;
+  justify-content: flex-end; /* right-aligns items in div */
+}
+
+#main-nav li{
+  display: inline; /* removes line breaks and bullets */
+  margin-left: 0.75rem;
+}
+
+#nav-help{
+  display: flex;
+}
+#nav-help a{
+  font-size: 0.9rem;
+  display: flex;
+  padding-top: 0.55rem;
+}
+#nav-help a:link, #nav-help a:visited{
+  text-decoration: none;
+  color: #c70039;
+}
+#nav-help a:hover{
+  text-decoration: underline;
+  color: #ff5733;
+}
+#nav-help a:active{
+  text-decoration: underline;
+  color: #900c3f;
+}
+
+#nav-culture-info button{
+  border: 2px solid gray;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  height: 2.2rem;
+  background-color: white;
+}
+#nav-culture-info button:hover{
+  border: 2px solid #c70039;
+}
+#nav-culture-info button:active{
+  border: 3px solid #900c3f;
+}
+
+.culture-currency{
+  color: gray;
+}
+
+#nav-login button{
+  border: 2px solid gray;
+  border-radius: 4px;
+  font-size: 1.2rem;
+  height: 2.2rem;
+  color: #c70039;
+  background-color: white;
+}
+#nav-login button:hover{
+  border: 2px solid #c70039;
+}
+#nav-login button:active{
+  border: 3px solid #900c3f;
+  color: #900c3f;
+}
+
+#logo a, #nav-help a, #nav-culture-info button, #nav-login button{
+  cursor: pointer; /*cursor becomes finger pointer on hover*/
+}
+
+
+.page-content{
+  /* background-image: url({{ url_for('static', filename='/static/img/sunset.jpg') }}); */
+  background-image: url('../img/sunset2.jpg');
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+
+.page-hide-bg{
+  background-image: none;
+}
+
+#flight-search{
   padding: 25px;
-  border-radius: 3px;
-}
-
-.flight-search{
-  background-color: #004445;
+  border-radius: 4px;
+  background-color: #511845;
 }
 
 #trip-type{
@@ -19,10 +137,6 @@
 #trip-type input[type="radio"]{
   margin-right: 0;
 }
-
-/* input[type="radio"]:not(old):checked + label > span:before{
-  color: #f8b400;
-} */
 
 input[type="radio"] {
   display: none;
@@ -42,14 +156,17 @@ input[type="radio"] + *::before {
 }
 
 input[type="radio"]:checked + *::before {
-  background: radial-gradient(teal 0%, teal 40%, transparent 50%, transparent);
-  border-color: teal;
+  background: radial-gradient(#c70039 0%, #c70039 40%, transparent 0%, transparent);
+  border-color: #c70039;
 }
+
 input[type="radio"]:checked + * {
-  color: teal;
+  /* color: teal; */
 }
 
-
+input[type="radio"] + * { /* text after radio button */
+  color: white;
+}
 
 #trip-type label{
   margin-right: 10px;
@@ -66,11 +183,13 @@ input[type="radio"]:checked + * {
   flex-direction: row;
   flex-wrap: wrap;
   flex-grow: 1;
+  color: black;
 }
 
 .details-subgroup label{
-  font-size: 12px;
+  font-size: 0.75rem;
   font-weight: bold;
+  color: white;
 }
 
 #locations{
@@ -85,17 +204,89 @@ input[type="radio"]:checked + * {
   display: flex;
   flex-direction: column;
   width: 200px;
-  flex-grow: 1;
+  flex-grow: 1; /*horizontally*/
   height: 60px;
 }
 
 .locations-subgroup input{
-  height: 40px;
-  flex-grow: 1;
+  height: 70px;
+  /* flex-grow: 1; */
   border: 1px solid gray;
-  padding-top: 5px;
-  font-size: 16px;
+  padding-top: 11.75px;
+  padding-bottom: 11.75px;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: 1.0rem;
   text-align: left;
+  z-index: 50;
+}
+
+.dropdown{
+  display: none; /*change to block*/
+  z-index: 900;
+  border-radius: 0.25rem;
+  border: 1px solid gray;
+  background-color: white;
+}
+.triangle-up{
+  display: none;
+  width: 0;
+  height: 0;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+  border-bottom: 12px solid white;
+}
+#triangle-origin{
+
+}
+#triangle-destination{
+
+}
+.dropdown-locations{
+  width: 400px;
+}
+#dropdown-origin{
+  z-index: 950;
+}
+#dropdown-destination{
+  z-index: 970;
+}
+#everywhere{
+  z-index: 970;
+  color: white;
+  background-color: #c70039;
+}
+#everywhere:hover{
+  background-color: #ff5733;
+}
+#everywhere:active{
+  background-color: #900c3f;
+}
+hr{
+  margin: 0;
+  border: 0.5px solid gray;
+}
+.locations-origin, .locations-destination{
+  cursor: pointer;
+  padding: 0.75rem;
+}
+.locations-origin:hover, .locations-destination:hover{
+  background-color: lightgray;
+}
+.locations-origin:active, .locations-destination:active{
+  background-color: gray;
+}
+.locations-origin{
+  display: block;
+  color: black;
+}
+.locations-main-info{
+  font-weight: bold;
+  font-size: 1.0rem;
+  padding-bottom: 0.25rem;
+}
+.locations-name{
+  font-size: 0.75rem;
 }
 
 .dates-travelers-subgroup{
@@ -108,10 +299,13 @@ input[type="radio"]:checked + * {
 .dates-travelers-subgroup button{
   width: 100%;
   height: 50px;
-  font-size: 16px;
+  font-size: 1.0rem;
   border: 1px solid gray;
+  padding-top: 11.75px;
+  padding-bottom: 11.75px;
+  background-color: white;
   padding-left: 10px;
-  padding-top: 5px;
+  padding-right: 10px;
   text-align: left;
 }
 
@@ -123,6 +317,36 @@ input[type="radio"]:checked + * {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
+  height: 60px;
+}
+#calendar{
+  display: block;
+  /* width: 200px; */
+  z-index: 980;
+  border-radius: 4px;
+  border: 1px solid gray;
+  background-color: white;
+  text-align: center;
+}
+.triangle-container{
+  width: 200px;
+  display: inline;
+}
+.triangle-left{
+  /* display: inline; */
+  width: 0;
+height: 0;
+border-style: solid;
+border-width: 0.25rem 0.25rem 0.25rem 0;
+border-color: transparent #c70039 transparent transparent;
+}
+.triangle-right{
+  /* display: inline; */
+  width: 20px;
+height: 0;
+border-style: solid;
+border-width: 0.25rem 0 0.25rem 0.25rem;
+border-color: transparent transparent transparent #c70039;
 }
 
 #travelers{
@@ -140,15 +364,18 @@ input[type="radio"]:checked + * {
   margin-top: 20px;
   height: 45px;
   width: 100%;
-  border-radius: 3px;
+  border-radius: 4px;
   border: none;
-  background-color: green;
-  font-size: 24px;
+  background-color: #c70039;
+  color: white;
+  font-size: 1.5rem;
   font-weight: bold;
 }
-
 #submit button:hover{
-  background-color: blue;
+  background-color: #ff5733;
+}
+#submit button:active{ /* clicked */
+  background-color: #900c3f;
 }
 
 #trip-type input, #trip-type label, .dates-travelers-subgroup button, #submit button{
