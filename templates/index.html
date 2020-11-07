@@ -1,53 +1,170 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-
 <head>
-<title>boom</title>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
 </head>
-
 <body>
 
-{% if userType == 'guest' %}
-	<a href="/login">Login</a>
-	<a href="/register/select-user-type">Register</a>
-{% else %}
-	{% if userType == 'customer' %}
-		Welcome, {{ info['name'] }}
-	{% else %}
-		Welcome, {{ username }}.<br>
-		{% if userType == 'booking_agent'%}
-			My ID: {{ info['id'] }}
-		{% elif userType == 'airline_staff'%}
-			{{ info['airline_name'] }}
-		{% endif %}
-	{% endif %}
-{% endif %}
+{% for a in airports %}
+<div class="airport" style="display: none;">
+  <div class="airport-name">{{ a['name'] }}</div>
+  <div class="airport-city">{{ a['city'] }}</div>
+  <div class="airport-state">{{ a['state'] }}</div>
+  <div class="airport-country">{{ a['country'] }}</div>
+  <div class="airport-code">{{ a['code'] }}</div>
+</div>
+{% endfor %}
 
-{% if userType == 'customer'%}
-	<br><a href="/view-my-flights">My Flights</a>
-	<br><a href="/search-flights">Search Flights</a>
-	<br><a href="/track-my-spending">Track My Spending</a>
-	<br><a href="/logout">Logout</a>
+<div id="body-container">
+  <div id="header-root">
+    <div id="header-flexwrapper">
+        <div id="logo">
+          <a class="" href="/">
+            <span id="logo-text">Airline System</span>
+          </a>
+        </div>
 
-{% elif userType == 'booking_agent'%}
-	<br><a href="/agent-view-flights">My Flights</a>
-	<br><a href="/view-my-commission">My Statistics</a>
-	<br><a href="/logout">Logout</a>
+        <nav id="main-nav">
+          <ul>
+            <li id="nav-help">
+              <!-- <div id="nav-help-subwrapper"> -->
+                <a href="" target="_blank" rel="noopener">Help</a>
+              <!-- </div> -->
+            </li>
+            <li id="nav-culture-info">
+              <button type="button" onclick="showRegionalSettings()">
+                <span id="culture-language-desktop">English (US)</span>
+                <span id="culture-language-mobile" style="display: none;">EN</span>
 
-{% elif userType == 'airline_staff'%}
-	<br><a href="/view-sales-reports">Statistics</a> for {{ info['airline_name'] }}
-	<br><a href="/view-our-flights">View and Edit Flights</a>
-	<br><a href="/airplanes">View and Edit Airplanes</a>
-	<br><a href="/airports">View and Edit Airports</a>
+                <img id="culture-flag">
+                <span id="culture-country">United States</span>
 
-	<div>
-		My Account
-	</div>
-	<a href="/go-back">Go back</a><br>
-	<a href="/logout">Logout</a>
+                <span class="culture-currency" id="culture-currency-desktop">$ USD</span>
+                <span class="culture-currency" id="culture-currency-mobile" style="display: none;">USD ($)</span>
+              </button>
+            </li>
+            <li id="nav-login">
+              <button type="button" onclick="showLoginOptions()">
+                <span>Log in</span>
+              </button>
+            </li>
+            <li id="nav-account-button" style="display: none;"></li>
+          </ul>
+        </nav>
+    </div>
+  </div>
 
-{% endif %}
+  <div class="page-content">
+    <div id="flight-search">
+      <!-- Fill out these fields to search for flights -->
+      <form action="/search-flights-within-dates" method="POST" autocomplete="off">
+        <div id="trip-type">
+          <input type="radio" id="trip-type-selector-roundtrip" name="trip-type" value="roundtrip" checked>
+          <label class="trip-type-selector-text" for="trip-type-selector-roundtrip">Roundtrip</label>
+          <input type="radio" id="trip-type-selector-oneway" name="trip-type" value="oneway">
+          <label class="trip-type-selector-text" for="trip-type-selector-oneway">One way</label>
+        </div>
+
+        <div id="trip-details">
+          <div class="details-subgroup" id="locations">
+            <div class="locations-subgroup" id="location-from">
+              <label class="trip-details-label" for="trip-origin-search">From</label>
+              <!-- <div> -->
+              <input class="trip-details-input" id="trip-origin-search" type="text">
+              <div><div class="triangle-up" id="triangle-origin"></div></div>
+              <div class="dropdown dropdown-locations" id="dropdown-origin">
+                <!-- <div class="locations-origin" id="origin0">
+                  <div class="locations-main-info">Shanghai, China (PVG)</div>
+                  <div class="locations-name">Pudong</div>
+                </div>
+                <hr>
+                <div class="locations-origin" id="origin1">
+                  <div class="locations-namecode">Tokyo Narita (NRT)</div>
+                  <div class="locations-country">Japan</div>
+                </div> -->
+              </div>
+              <!-- </div> -->
+            </div>
+
+            <div class="locations-subgroup" id="location-to">
+              <label class="trip-details-label" for="trip-destination-search">To</label>
+              <input class="trip-details-input" id="trip-destination-search" type="text">
+              <div><div class="triangle-up" id="triangle-destination"></div></div>
+              <div class="dropdown dropdown-locations" id="dropdown-destination">
+              </div>
+            </div>
+          </div>
+
+          <div class="details-subgroup" id="dates-and-class-travelers">
+            <div class="dates-travelers-subgroup" id="dates">
+              <div class="dates-subgroup" id="depart">
+                <label class="trip-details-label" for="depart-datepicker-button">Depart</label>
+                <button class="trip-details-input" id="depart-datepicker-button" type="button" onclick="showDepartCalendar()">
+                  <span id="depart-datepicker-text"></span>
+                </button>
+                <div><div class="triangle-up" id="triangle-depart-date"></div></div>
+                <div class="dropdown" id="calendar">
+                <!-- <div id="calendar" class="depart" or class="return"> -->
+                  <!-- <div class="calendar-section depart" id="depart-or-return">Depar</div> -->
+                  <div class="calendar-section" id="depart-or-return"><!--Depart--></div>
+                  <div class="calendar-section" id="month">
+                    <div class="triangle-container"> &nbsp;&nbsp; <span class="triangle-left"></span> &nbsp; </div>
+                    <select id="select-month"></select>
+                    <div class="triangle-container"><span class="triangle-right"></span></div>
+                  </div>
+                  <!-- <div class="calendar-section" id="table-container">
+                    <table>
+                      <tr id="days-of-week"></tr>
+                      <tr id="dates-row0"></tr>
+                      <tr id="dates-row1"></tr>
+                      <tr id="dates-row2"></tr>
+                      <tr id="dates-row3"></tr>
+                      <tr id="dates-row4"></tr>
+                      <tr id="dates-row5"></tr>
+                    </table>
+                  </div> -->
+                </div>
+              </div>
+              <div class="dates-subgroup" id="return">
+                <label class="trip-details-label" for="return-datepicker-button">Return</label>
+                <button class="trip-details-input" id="return-datepicker-button" type="button" onclick="showReturnCalendar()">
+                  <span id="return-datepicker-text"></span>
+                </button>
+                <div><div class="triangle-up" id="triangle-return-date"></div></div>
+              </div>
+            </div>
+            <div class="dates-travelers-subgroup" id="travelers">
+              <div class="travelers-subgroup">
+                <label class="trip-details-label">Cabin Class & Travelers</label>
+                <button class="trip-details-input" id="class-travelers-trigger" name="class-travelers-trigger" type="button">
+                  <span id="cabin-class-travelers-selector-text">1 adult, Economy</span>
+                </button>
+                <div><div class="triangle-up" id="triangle-class-travelers"></div></div>
+                <div class="dropdown" id="dropdown-class-travelers">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="submit" type="submit">
+          <button>Search flights &#10140;</button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+</div>
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="{{ url_for('static', filename='js/popupMenus.js') }}" type="text/javascript"></script>
+<script src="{{ url_for('static', filename='js/flightSearchResize.js') }}" type="text/javascript"></script>
+<script src="{{ url_for('static', filename='js/inputClickaways.js') }}" type="text/javascript"></script>
+<script src="{{ url_for('static', filename='js/findAirports.js') }}" type="text/javascript"></script>
+<script src="{{ url_for('static', filename='js/departReturnDates.js') }}" type="text/javascript"></script>
+<script src="{{ url_for('static', filename='js/cabinClassTravelers.js') }}" type="text/javascript"></script>
+
 
 </body>
-
 </html>
