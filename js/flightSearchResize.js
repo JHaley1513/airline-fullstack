@@ -1,9 +1,6 @@
 $defaultBorder = "1px solid gray";
 $locationsWidth = 400;
 
-var $today = new Date();
-$lastReturnDate = "XX/XX/XX";
-
 $(document).ready(function(){
     for(let i=0; i<50; i++){
         addLines();
@@ -11,39 +8,10 @@ $(document).ready(function(){
 
     updateContainer();
     $(window).resize(updateContainer)
-
-    $('input[type=radio][name=trip-type]').change(function(){
-        if(this.value === "oneway"){
-            $('#return button').html("(One way)");
-            $('#return, #return button').css({
-                color: "gray"
-            });
-        }
-        else if(this.value === "roundtrip"){
-            $('#return button').html($lastReturnDate);
-            $('#return, #return button').css({
-                color: "black"
-            });
-        }
-    });
-
-    var $twoWksFromNow = todayPlusDays(14);
-    var $threeWksFromNow = todayPlusDays(21);
-
-    $('#depart button').html($twoWksFromNow);
-    $('#return button').html($threeWksFromNow);
-    $lastReturnDate = $threeWksFromNow;
 });
 
-function todayPlusDays($numDays){
-    $newDate = new Date();
-    $newDate.setDate($today.getDate()+$numDays);
-
-    return ('0' + ($newDate.getMonth()+1)).slice(-2) + "/" + ('0' + $newDate.getDate()).slice(-2) + "/" + $newDate.getFullYear().toString().substr(2,2);
-}
-
 function addLines(){
-    $('body').append('<div>...</div>');
+    $('.page-content').append('<div>...</div>');
 }
 
 function updateContainer(){
@@ -51,18 +19,13 @@ function updateContainer(){
     updateMargins($windowWidth);
     updateBackgroundImage($windowWidth);
     updateInputs($windowWidth);
+    updateTriangles();
     if($windowWidth > 1128){
         $pageMargin = (($windowWidth - 1128)/2) + "px";
-        $('#body-container').css({
-            marginLeft: $pageMargin,
-            marginRight: $pageMargin
-        });
+        setMargins($pageMargin);
     }
     else{
-        $('#body-container').css({
-            marginLeft: 0,
-            marginRight: 0
-        });
+        setMargins(0);
         if($windowWidth > 788){ //same as above but without margin
 
         }
@@ -73,7 +36,7 @@ function updateContainer(){
 
         }
         else{ //four lines
-            $('.flight-search').css({
+            $('#flight-search').css({
                 // height:
             });
         }
@@ -83,25 +46,32 @@ function updateContainer(){
 function updateMargins($windowWidth){
     if($windowWidth > 1128){
         $newMargin = (($windowWidth - 1128)/2) + "px";
-        $('#body-container').css({
-            marginLeft: $newMargin,
-            marginRight: $newMargin
-        });
+        setMargins($newMargin);
     }
     else{
-        $('#body-container').css({
-            marginLeft: 0,
-            marginRight: 0
-        });
+        setMargins(0);
     }
+}
+
+function setMargins($margin){
+    $('#header-flexwrapper').css({
+        paddingLeft: $margin,
+        paddingRight: $margin
+    });
+    $('#flight-search').css({
+        marginLeft: $margin,
+        marginRight: $margin
+    });
 }
 
 function updateBackgroundImage($windowWidth){
     if($windowWidth > 730){
         //show
+        $('.page-content').removeClass('page-hide-bg');
     }
     else{
         //hide
+        $('.page-content').addClass('page-hide-bg');
     }
 }
 
@@ -176,4 +146,27 @@ function updateInputs($windowWidth){
             marginLeft: "0"
         });
     }
+}
+
+function updateTriangles(){
+    var triangleSize = 12;
+    $('#triangle-origin').css({
+        marginLeft: (halfOfDivWidth('#location-from') - triangleSize).toFixed(2) + "px" //x.toFixed(y) converts x to string with y decimal places
+    });
+    $('#triangle-destination').css({
+        marginLeft: (halfOfDivWidth('#location-to') - triangleSize).toFixed(2) + "px"
+    });
+    $('#triangle-depart-date').css({
+        marginLeft: (halfOfDivWidth('#depart-datepicker-button') - triangleSize).toFixed(2) + "px"
+    });
+    $('#triangle-return-date').css({
+        marginLeft: (halfOfDivWidth('#return-datepicker-button') - triangleSize).toFixed(2) + "px"
+    });
+    $('#triangle-class-travelers').css({
+        marginLeft: (halfOfDivWidth('#class-travelers-trigger') - triangleSize).toFixed(2) + "px"
+    });
+}
+
+function halfOfDivWidth(divId){
+    return parseFloat( $(divId).css('width').substring( 0, $(divId).css('width').length-2 ) ) / 2;
 }
